@@ -54,5 +54,23 @@ namespace Cab_Invoice_Generator.test
             double actual = summary.totalFare;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void Given5Rides_InvoiceSummaryShould_ReturnEnhancedInvoiceSummary()
+        {
+            Ride[] rides =
+            {
+                new Ride(1.0, 1),
+                new Ride(2.0, 2),
+                new Ride(3.0, 2),
+                new Ride(4.0, 4),
+                new Ride(5.0, 3),
+                new Ride(6.0, 3)
+            };
+            InvoiceSummary expected = new InvoiceSummary(6, 225);
+            CabInvoice invoiceGenerator = new CabInvoice();
+            InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
+            Assert.AreEqual(summary, expected);
+        }
     }
 }
