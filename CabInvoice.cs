@@ -8,6 +8,8 @@ namespace Cab_Invoice_Generator
 {
     public class CabInvoice
     {
+        public RideRepository rideRepository;
+
         public double CalculateFare(double distance, int time)
         {
             int costPerKilometer = 10;
@@ -26,6 +28,16 @@ namespace Cab_Invoice_Generator
                 totalFare += this.CalculateFare(ride.distance, ride.time);
             }
             return new InvoiceSummary(rides.Length, totalFare);
+        }
+
+        public void AddRides(string userId, Ride[] rides)
+        {
+            rideRepository.AddRide(userId, rides);
+        }
+
+        public InvoiceSummary GetInvoiceSummary(string userId)
+        {
+            return this.CalculateFare(rideRepository.GetRides(userId));
         }
     }
 }

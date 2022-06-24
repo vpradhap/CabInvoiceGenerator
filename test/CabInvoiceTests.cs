@@ -72,5 +72,24 @@ namespace Cab_Invoice_Generator.test
             InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
             Assert.AreEqual(summary, expected);
         }
+
+        [TestMethod()]
+        public void GivenUserId_InvoiceServiceShould_ReturnListOfRides()
+        {
+            Ride[] rides =
+            {
+                new Ride(1.0, 1),
+                new Ride(2.0, 2),
+                new Ride(3.0, 2),
+                new Ride(4.0, 4),
+                new Ride(5.0, 3),
+                new Ride(6.0, 3)
+            };
+            string userId = "12345";
+            RideRepository rideRepository = new RideRepository();
+            rideRepository.AddRide(userId, rides);
+            Ride[] actual = rideRepository.GetRides(userId);
+            Assert.AreEqual(rides.Length, actual.Length);
+        }
     }
 }
